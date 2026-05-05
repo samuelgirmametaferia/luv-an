@@ -1,0 +1,7 @@
+module math
+
+pub fn add(a: int, b: int) -> a+b
+priv fn sub(a: int, b: int) -> a-b
+
+pub PI = 3.1415
+priv E = 2.7182

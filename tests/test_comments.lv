@@ -1,0 +1,9 @@
+
+
+fn main(): int {
+    // C-style line comment
+    # Hash comment
+    @println("Both comment styles work!\n")
+    // another C comment
+    return 0
+}

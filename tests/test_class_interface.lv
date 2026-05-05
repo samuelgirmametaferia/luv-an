@@ -1,0 +1,36 @@
+
+
+# ── Interface declaration ──
+
+interface Drawable {
+    fn draw(self: Drawable)
+}
+
+interface Resizable {
+    fn resize(self: Resizable, factor: int)
+}
+
+class Circle {
+    pub radius: int
+
+    fn init(self: Circle, r: int) {
+        self.radius = r
+    }
+
+    pub fn draw(self: Circle) {
+        @println("Drawing circle with radius %d\n", self.radius)
+    }
+
+    pub fn resize(self: Circle, factor: int) {
+        self.radius = self.radius * factor
+    }
+}
+
+main() {
+    c = Circle(5)
+    c.draw()
+    c.resize(3)
+    c.draw()
+    @println("Final radius: %d\n", c.radius)
+    0
+}

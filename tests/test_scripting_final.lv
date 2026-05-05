@@ -1,0 +1,10 @@
+println("Running: ", __name__)
+println("Arguments: ", __arg__.len)
+
+for i in 0..__arg__.len {
+    println("  arg[", i, "]: ", __arg__[i])
+}
+
+if (__name__ == "__main__") {
+    println("This is the main script!")
+}

@@ -1,0 +1,7 @@
+# Test: importing private symbol without @ (should error)
+use sub from math
+
+main() {
+    x = sub(10, 3)
+    0
+}

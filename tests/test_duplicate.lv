@@ -1,0 +1,8 @@
+# Test: duplicate function definition (should error)
+fn greet() -> 1
+fn greet() -> 2
+
+main() {
+    greet()
+    0
+}

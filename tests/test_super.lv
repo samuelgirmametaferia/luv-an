@@ -1,0 +1,20 @@
+
+
+class Parent {
+    pub fn greet(self: Parent) {
+        @println("Hello from Parent\n")
+    }
+}
+
+class Child : Parent {
+    override pub fn greet(self: Child) {
+        super.greet()
+        @println("Hello from Child\n")
+    }
+}
+
+fn main() {
+    c: Child = Child()
+    c.greet()
+    0
+}

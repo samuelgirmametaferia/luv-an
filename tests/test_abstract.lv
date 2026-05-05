@@ -1,0 +1,19 @@
+
+
+abstract class Shape {
+    fn draw(self: Shape) {
+        @println("Drawing shape\n")
+    }
+}
+
+class Circle : Shape {
+    override pub fn draw(self: Circle) {
+        @println("Drawing circle\n")
+    }
+}
+fn main() {
+    c: Circle = Circle()
+    c.draw()
+    # s: Shape = Shape() # This would fail at compile time
+    0
+}

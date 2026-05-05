@@ -1,0 +1,62 @@
+
+
+# ── Single inheritance with field + method inheritance ──
+
+class Vehicle {
+    pub brand: string
+    pub speed: int
+
+    fn init(self: Vehicle, brand: string, speed: int) {
+        self.brand = brand
+        self.speed = speed
+    }
+
+    pub fn honk(self: Vehicle) {
+        @println("%s goes BEEP!\n", self.brand)
+    }
+}
+
+class Car : Vehicle {
+    pub doors: int
+
+    fn init(self: Car, brand: string, speed: int, doors: int) {
+        self.brand = brand
+        self.speed = speed
+        self.doors = doors
+    }
+
+    pub fn info(self: Car) {
+        @println("%s: %d doors, %d km/h\n", self.brand, self.doors, self.speed)
+    }
+}
+
+class ElectricCar : Car {
+    pub battery: int
+
+    fn init(self: ElectricCar, brand: string, speed: int, doors: int, battery: int) {
+        self.brand = brand
+        self.speed = speed
+        self.doors = doors
+        self.battery = battery
+    }
+
+    pub fn charge(self: ElectricCar) {
+        @println("Charging %s (%d%% battery)\n", self.brand, self.battery)
+    }
+}
+
+main() {
+    v = Vehicle("Horn Co", 60)
+    v.honk()
+
+    c = Car("Toyota", 180, 4)
+    c.info()
+    c.honk()
+
+    e = ElectricCar("Tesla", 250, 4, 85)
+    e.charge()
+    e.info()
+    e.honk()
+    @println("Battery: %d%%\n", e.battery)
+    0
+}

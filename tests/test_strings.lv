@@ -1,0 +1,25 @@
+
+
+main() {
+    # Test 1: Binary + String concatenation
+    a = "Hello, "
+    b = "Luv compiler!"
+    c = a + b
+    
+    @println("Concat test: %s\n", c)
+    
+    # Test 2: String Interpolation
+    name = "World"
+    age = 42
+    msg = &"Message: {name}, the answer is {age * 2}!"
+    
+    @println("Interpolation test: %s\n", msg)
+
+    # Test 3: String methods (injected automatically via ptr_ method names)
+    l = c.length()
+    up = c.toUpper()
+    @println("Concat length: %d\n", l)
+    @println("Uppercase: %s\n", up)
+    
+    0
+}

@@ -1,0 +1,7 @@
+
+
+fn main(): int {
+    mut arr = [1, 2, 3]
+    @println("Accessing arr[10]: %d\n", arr[10]) # should panic
+    return 0
+}

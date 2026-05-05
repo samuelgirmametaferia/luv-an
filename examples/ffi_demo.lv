@@ -1,0 +1,38 @@
+# ─────────────────────────────────────────────────────────
+#  Luv FFI Demo — C, C++, and Rust interop
+#
+#  Syntax summary:
+#    extern fn <name>(...): <type>           → C ABI (default)
+#    extern "C" fn <name>(...): <type>       → Explicit C ABI
+#    extern "C++" fn <name>(...): <type>     → C++ ABI (Itanium mangling)
+#    extern "Rust" fn <name>(...): <type>    → Rust ABI (extern "C" convention)
+# ─────────────────────────────────────────────────────────
+
+# ── C FFI: Standard library ──────────────────────────────
+extern "C" fn puts(s: string): int
+extern "C" fn printf(fmt: string): int
+
+# ── C++ FFI (Itanium mangled): link against a C++ library ──
+# Declares: int add(int, int) — mangled to _Z3addii
+extern "C++" fn add(a: int, b: int): int
+
+# ── Rust FFI (via extern "C" bridge): link against a Rust static lib ──
+# The Rust side must use: #[no_mangle] pub extern "C" fn rust_multiply(...)
+extern "Rust" fn rust_multiply(a: int, b: int): int
+
+fn main(): int {
+    puts("=== Luv FFI Demo ===")
+
+    # C ABI call
+    printf("C FFI: puts() called above\n")
+
+    # C++ ABI call
+    x: int = add(5, 7)
+    printf("C++ FFI: add(5, 7) = %d\n")
+
+    # Rust ABI call  
+    y: int = rust_multiply(6, 7)
+    printf("Rust FFI: rust_multiply(6, 7) = %d\n")
+
+    return 0
+}

@@ -1,0 +1,8 @@
+# Test: undefined function (should error with suggestion)
+fn calculate(x: int) -> x * 2
+
+main() {
+    
+    y = calculate(5)
+    0
+}

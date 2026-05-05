@@ -1,0 +1,11 @@
+# Test: valid program (no recursion to avoid codegen issue)
+fn square(x: int) -> x * x
+fn double(x: int) -> x + x
+
+main() {
+    a = square(5)
+    b = double(3)
+    @println("square(5) = %d\n", a)
+    @println("double(3) = %d\n", b)
+    0
+}

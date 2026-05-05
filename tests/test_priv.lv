@@ -1,0 +1,28 @@
+
+
+class BankAccount {
+    priv balance: int
+    
+    pub fn init(self: BankAccount) {
+        self.balance = 100
+    }
+    
+    priv fn internalCheck(self: BankAccount) {
+        @println("Internal check ok\n")
+    }
+    
+    pub fn withdraw(self: BankAccount) {
+        self.internalCheck()
+        self.balance = self.balance - 10
+        @println("Withdrew 10\n")
+    }
+}
+
+fn main() {
+    acc: BankAccount = BankAccount()
+    acc.withdraw()
+    
+    # acc.balance = 500       # ERROR: private field
+    # acc.internalCheck()     # ERROR: private method
+    0
+}

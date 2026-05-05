@@ -1,0 +1,28 @@
+
+
+fn removeWhiteSpace(mut name: string) {
+    # We'll just append something or change it.
+    # But since it's a string (pointer), mutating it in place in Luv is just pointer reassignment
+    # unless we manipulate the bytes. Let's mutate the pointer to point to a new string!
+    name = "edited"
+}
+
+
+main() {
+    # Test 1: non-mut variable
+    name = "Sa mi"
+    removeWhiteSpace(name)
+    @println("After test 1 (expected 'Sa mi'): %s\n", name)
+
+    # Test 2: non-mut reassigned
+    name = "Sa mi 2"
+    removeWhiteSpace(name)
+    @println("After test 2 (expected 'Sa mi 2'): %s\n", name)
+
+    # Test 3: mut variable
+    mut mut_name = "Sa mi"
+    removeWhiteSpace(mut_name)
+    @println("After test 3 (expected 'edited'): %s\n", mut_name)
+
+    0
+}

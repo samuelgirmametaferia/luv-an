@@ -1,0 +1,6 @@
+extern fn printf(fmt: string): int
+
+main() {
+    printf("Hello from Luv on Android!\n")
+    0
+}

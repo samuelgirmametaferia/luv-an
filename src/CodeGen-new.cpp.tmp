@@ -1,0 +1,83 @@
+
+// ─────────────────────────────────────────────────────────
+//  New features implementation
+// ─────────────────────────────────────────────────────────
+
+llvm::Value* CodeGen::visit(VarPattern& node) {
+    auto alloca = builder.CreateAlloca(matchValue->getType(), nullptr, node.name);
+    builder.CreateStore(matchValue, alloca);
+    namedValues[node.name] = {alloca, matchValue->getType(), true};
+    return matchValue;
+}
+
+llvm::Value* CodeGen::visit(TuplePattern& node) {
+    if (!matchValue->getType()->isStructTy()) {
+        builder.CreateBr(matchFailBB);
+        return nullptr;
+    }
+    llvm::Value* originalMatchValue = matchValue;
+    for (size_t i = 0; i < node.patterns.size(); ++i) {
+        matchValue = builder.CreateExtractValue(originalMatchValue, (unsigned)i);
+        node.patterns[i]->accept(*this);
+    }
+    matchValue = originalMatchValue;
+    return matchValue;
+}
+
+llvm::Value* CodeGen::visit(StructPattern& node) {
+    if (!matchValue->getType()->isStructTy()) {
+        builder.CreateBr(matchFailBB);
+        return nullptr;
+    }
+    llvm::Value* originalMatchValue = matchValue;
+    for (size_t i = 0; i < node.fields.size(); ++i) {
+        matchValue = builder.CreateExtractValue(originalMatchValue, (unsigned)i);
+        node.fields[i].second->accept(*this);
+    }
+    matchValue = originalMatchValue;
+    return matchValue;
+}
+
+llvm::Value* CodeGen::visit(ArrayPattern& node) {
+    builder.CreateBr(matchFailBB);
+    return nullptr;
+}
+
+llvm::Value* CodeGen::visit(WildcardPattern& node) {
+    return matchValue;
+}
+
+llvm::Value* CodeGen::visit(ConstantPattern& node) {
+    llvm::Value* patVal = node.expr->accept(*this);
+    llvm::Value* cond = builder.CreateICmpEQ(matchValue, patVal);
+    llvm::BasicBlock* nextBB = llvm::BasicBlock::Create(context, "matchnext", builder.GetInsertBlock()->getParent());
+    builder.CreateCondBr(cond, nextBB, matchFailBB);
+    builder.SetInsertPoint(nextBB);
+    return matchValue;
+}
+
+void CodeGen::generatePatternMatch(Pattern* p, llvm::Value* val, llvm::BasicBlock* failBB) {
+    matchValue = val;
+    matchFailBB = failBB;
+    p->accept(*this);
+}
+
+llvm::Value* CodeGen::visit(EnumDecl& node) {
+    std::vector<llvm::Type*> elements;
+    elements.push_back(builder.getInt32Ty()); // tag
+    elements.push_back(builder.getInt64Ty()); // payload
+    llvm::StructType* st = llvm::StructType::create(context, elements, node.name);
+    enumTypes[node.name] = st;
+    enumDecls[node.name] = &node;
+    return nullptr;
+}
+
+std::vector<std::string> CodeGen::extractLabels(const std::vector<Expr*>& attrs) {
+    std::vector<std::string> labels;
+    for (auto* attr : attrs) {
+        if (auto* var = dynamic_cast<VarExpr*>(attr)) labels.push_back(var->name);
+    }
+    return labels;
+}
+
+} // namespace luv

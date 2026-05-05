@@ -1,0 +1,35 @@
+
+
+class Vector {
+    pub x: int
+    pub y: int
+
+    pub fn init(self: Vector) {
+        self.x = 0
+        self.y = 0
+    }
+
+    pub fn +(self: Vector, other: Vector): Vector {
+        res: Vector = Vector()
+        res.x = self.x + other.x
+        res.y = self.y + other.y
+        return res
+    }
+}
+
+fn main() {
+    v1: Vector = Vector()
+    v1.x = 10
+    v1.y = 20
+
+    v2: Vector = Vector()
+    v2.x = 5
+    v2.y = 15
+
+    v3: Vector = v1 + v2
+    
+    # We can't print integers properly yet without formats, but we can verify it doesn't crash
+    if v3.x == 15 {
+        @println("Success\n")
+    }
+}

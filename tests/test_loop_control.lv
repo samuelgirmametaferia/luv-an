@@ -1,0 +1,31 @@
+fn main() {
+    println("Starting loop test")
+    
+    // Simple loop with break
+    for i in 0..10 {
+        if i == 5 {
+            break
+        }
+        println("i =", i)
+    }
+    
+    // Simple loop with continue
+    for i in 0..5 {
+        if i == 2 {
+            continue
+        }
+        println("i =", i)
+    }
+    
+    // Labeled loop
+    ![outer] for i in 0..3 {
+        ![inner] for j in 0..3 {
+            if i == 1 and j == 1 {
+                break outer
+            }
+            println("i =", i, "j =", j)
+        }
+    }
+    
+    println("Loop test finished")
+}

@@ -1,0 +1,12 @@
+add(a: int, b: int) -> a+b
+sub(a: int, b: int) -> b-a
+
+
+main() {
+    const PI = 3.1415
+    printf("PI: %f\n", PI)
+    sum = add(5, 7)
+    printf("Sum: %d\n", sum)
+    0
+}
+

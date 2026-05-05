@@ -1,0 +1,11 @@
+main() {
+    for i in 0 .. 5 {
+        printf("i = %d\n", i)
+    }
+    for i in 0...5 {
+        printf("i = %d\n", i)
+    }
+    
+    0
+
+}

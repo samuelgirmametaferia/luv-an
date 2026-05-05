@@ -1,0 +1,15 @@
+fn factorial(n: int): int {
+    if n <= 1 { 
+        return 1
+    } else { 
+        return n * factorial(n - 1) 
+    }
+}
+
+add(a,b,c) -> a+b+c
+main() {
+    res: int = factorial(5)
+    res: int = add(1,2,3)
+    printf("Factorial of 5: %d\n", res)
+    0
+}

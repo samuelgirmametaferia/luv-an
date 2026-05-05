@@ -1,0 +1,31 @@
+# Test: all three new features
+
+# Extern: link to C's puts and exit
+extern fn puts(s: string): int
+extern fn exit(code: int): void
+
+main() {
+    # Intrinsics
+    a = 10
+    b = 3
+    mx = @max(a, b)
+    mn = @min(a, b)
+    ab = @abs(-42)
+    sz = @sizeof(a)
+    pc = @popcount(255)
+
+    @println("max(10,3) = %d\n", mx)
+    @println("min(10,3) = %d\n", mn)
+    @println("abs(-42)  = %d\n", ab)
+    @println("sizeof(int) = %ld\n", sz)
+    @println("popcount(255) = %d\n", pc)
+
+    # Inline assembly (x86_64: load 42 into result register)
+    x = asm { "movq $$42, $0" }
+    @println("asm result = %ld\n", x)
+
+    # Extern call
+    puts("Hello from extern puts!")
+
+    0
+}

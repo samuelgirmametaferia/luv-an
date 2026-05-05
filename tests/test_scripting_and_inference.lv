@@ -1,0 +1,42 @@
+/*
+  Test scripting mode, advanced inference, auto-const, and main with arguments.
+*/
+
+println("1. Testing scripting mode...")
+println("This code is running at the top level!")
+
+// 2. Type Inference: x and y should be inferred as int from the usage below
+fn add(x, y) {
+    return x + y
+}
+
+fn add_with_default(a, b = 100) {
+    return a + b
+}
+println("Default value test: ", add_with_default(5))
+
+mut sum = add(10, 20)
+println("Sum of 10 and 20 is: ", sum)
+
+// 3. Array Inference: arr should be inferred as [int]
+mut arr = [1, 2, 3, 4]
+println("Array elements: ", arr[0], arr[1], arr[2], arr[3])
+println("Array length: ", arr.len)
+
+// 4. Auto-const Optimization:
+// 'my_const' is never reassigned, so it should be automatically optimized to const.
+mut my_const = 42
+println("my_const is: ", my_const)
+
+// 5. Main with Arguments
+fn main(args: [string]) {
+    println("\n2. Main function called!")
+    println("Received ", args.len, " arguments.")
+    
+    if (args.len > 0) {
+        println("Arguments list:")
+        for i in 0..args.len {
+            println("  arg[", i, "]: ", args[i])
+        }
+    }
+}

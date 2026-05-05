@@ -1,0 +1,7 @@
+# Test: wrong argument count (should error)
+fn add(a: int, b: int) -> a + b
+
+main() {
+    x = add(1, 2, 3)
+    0
+}

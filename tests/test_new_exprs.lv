@@ -1,0 +1,33 @@
+class Vector {
+    pub x: int
+    pub y: int
+
+    pub fn set(newX: int, newY: int) {
+        self.x = newX
+        self.y = newY
+    }
+}
+
+main() {
+    v = Vector()
+    v->x = 10
+    v->y = 20
+    
+    # Compound assignment
+    v->x += 5
+    v->y *= 2
+    
+    # Postfix
+    v->x++
+    v->y--
+    
+    # Now check values
+    if (v.x == 16 && v.y == 39) {
+        @println("New expression features verified!")
+    } else {
+        @println("Verification failed.")
+        @println(v.x)
+        @println(v.y)
+    }
+    0
+}

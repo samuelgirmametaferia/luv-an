@@ -1,0 +1,7 @@
+# Test: const reassignment (should error)
+const  PI = 3.14
+
+main() {
+    PI = 6.28
+    0
+}

@@ -1,0 +1,37 @@
+
+
+# ── Structs still work alongside classes ──
+
+struct Point {
+    x: int
+    y: int
+}
+
+fn Point add(a: Point, b: Point): Point {
+    Point { x: a.x + b.x, y: a.y + b.y }
+}
+
+class Canvas {
+    pub width: int
+    pub height: int
+
+    fn init(self: Canvas, w: int, h: int) {
+        self.width = w
+        self.height = h
+    }
+
+    pub fn describe(self: Canvas) {
+        @println("Canvas %dx%d\n", self.width, self.height)
+    }
+}
+
+main() {
+    a = Point { x: 10, y: 20 }
+    b = Point { x: 5, y: 15 }
+    c = a.add(b)
+    @println("Point: %d, %d\n", c.x, c.y)
+
+    canvas = Canvas(800, 600)
+    canvas.describe()
+    0
+}

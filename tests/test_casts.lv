@@ -1,0 +1,33 @@
+
+
+fn int_double(val: int): int {
+    return val * 2
+}
+
+main() {
+    # 1. Safe Cast
+    x = 42
+    y = x as float
+    @println("42 as float: %f\n", y)
+
+    # safe cast truncation should warn during compile
+    big = 100000000000
+    small = big |> i32
+
+    # 2. Forced Cast
+    # force bitcast float to int (reinterpreting bits)
+    f = 3.14159
+    bits = f as! i64
+    @println("3.14159 bitcasted to i64: %ld\n", bits)
+
+    # 3. Built-in toString
+    s = x.toString()
+    @println("x.toString() = '%s'\n", s)
+
+    # 4. Custom Property/Method injection
+    # We defined int_double above! So we can call .double() on any int!
+    d = 10.double()
+    @println("10.double() = %d\n", d)
+
+    0
+}

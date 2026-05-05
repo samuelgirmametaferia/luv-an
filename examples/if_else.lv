@@ -1,0 +1,11 @@
+main() {
+    x = 42
+    if x > 50 {
+        printf("Greater than 50\n")
+    } ef x > 10 {
+        printf("Greater than 10\n")
+    } else {
+        printf("Less or equal 10\n")
+    }
+    0
+}

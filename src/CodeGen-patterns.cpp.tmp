@@ -1,0 +1,65 @@
+#include "CodeGen.h"
+#include <llvm/IR/Verifier.h>
+#include <llvm/Support/raw_ostream.h>
+
+namespace luv {
+
+// ─────────────────────────────────────────────────────────
+//  Pattern matching implementation
+// ─────────────────────────────────────────────────────────
+
+llvm::Value* CodeGen::visit(VarPattern& node) {
+    auto alloca = builder.CreateAlloca(matchValue->getType(), nullptr, node.name);
+    builder.CreateStore(matchValue, alloca);
+    namedValues[node.name] = {alloca, matchValue->getType(), true};
+    return matchValue;
+}
+
+llvm::Value* CodeGen::visit(TuplePattern& node) {
+    if (!matchValue->getType()->isStructTy()) {
+        builder.CreateBr(matchFailBB);
+        return nullptr;
+    }
+    llvm::Value* originalMatchValue = matchValue;
+    for (size_t i = 0; i < node.patterns.size(); ++i) {
+        matchValue = builder.CreateExtractValue(originalMatchValue, (unsigned)i);
+        node.patterns[i]->accept(*this);
+    }
+    matchValue = originalMatchValue;
+    return matchValue;
+}
+
+llvm::Value* CodeGen::visit(StructPattern& node) {
+    // Basic implementation: assumes fields are in order or name-matched
+    // For now, let's just handle it like a tuple if we can match names to indices
+    return nullptr; 
+}
+
+llvm::Value* CodeGen::visit(ArrayPattern& node) {
+    return nullptr; 
+}
+
+llvm::Value* CodeGen::visit(WildcardPattern& node) {
+    return matchValue;
+}
+
+llvm::Value* CodeGen::visit(ConstantPattern& node) {
+    llvm::Value* patVal = node.expr->accept(*this);
+    llvm::Value* cond = builder.CreateICmpEQ(matchValue, patVal);
+    llvm::BasicBlock* nextBB = llvm::BasicBlock::Create(context, "matchnext", builder.GetInsertBlock()->getParent());
+    builder.CreateCondBr(cond, nextBB, matchFailBB);
+    builder.SetInsertPoint(nextBB);
+    return matchValue;
+}
+
+void CodeGen::generatePatternMatch(Pattern* p, llvm::Value* val, llvm::BasicBlock* failBB) {
+    matchValue = val;
+    matchFailBB = failBB;
+    p->accept(*this);
+}
+
+// ─────────────────────────────────────────────────────────
+//  Existing visitors (truncated for brevity, I'll use replace for specific updates)
+// ─────────────────────────────────────────────────────────
+// ...
+} // namespace luv

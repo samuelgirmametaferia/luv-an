@@ -1,0 +1,10 @@
+use add from math
+use @ from math
+
+main() {
+    x = add(10, 5)
+    printf("Result: %d\n", x)
+    printf("PI is %f\n", PI)
+    printf("K is %d\n", E)
+    0
+}

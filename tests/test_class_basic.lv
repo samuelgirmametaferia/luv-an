@@ -1,0 +1,31 @@
+
+
+# ── Basic class declaration, init, methods, property access ──
+
+class Person {
+    pub name: string
+    pub age: int
+
+    fn init(self: Person, name: string, age: int) {
+        self.name = name
+        self.age = age
+    }
+
+    pub fn greet(self: Person) {
+        @println("Hi, I'm %s and I'm %d years old\n", self.name, self.age)
+    }
+
+    pub fn birthday(self: Person) {
+        self.age = self.age + 1
+    }
+}
+
+main() {
+    p = Person("Dagim", 25)
+    p.greet()
+    p.birthday()
+    p.greet()
+    @println("Name: %s\n", p.name)
+    @println("Age: %d\n", p.age)
+    0
+}
