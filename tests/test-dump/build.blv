@@ -1,0 +1,14 @@
+# ─────────────────────────────────────────────────────────
+# WASM Production Matrix
+# ─────────────────────────────────────────────────────────
+let arch = "wasm32-unknown-wasi"
+
+# 1. Compile Luv to object
+let src = @load("./src/main.lv", codec.luv)
+let obj = @build -target=arch -o "build" src
+
+# 2. Link to WebAssembly (.wasm)
+# We use wasm-ld or clang with wasi-sdk
+@link(obj, "build/app.wasm", -cmd="clang", "--target=wasm32-wasi", "-Wl,--no-entry", "-nostartfiles")
+
+@println("[+] WASM Cooked successfully: build/app.wasm")
