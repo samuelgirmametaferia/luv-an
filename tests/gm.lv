@@ -1,0 +1,37 @@
+const g = 9.8
+
+vec2 {
+    x: float
+    y: float
+}
+
+vec2 +(a: vec2, b: vec2): vec2 {
+    vec2 { x: a.x + b.x, y: a.y + b.y }
+}
+
+vec2 -(a: vec2, b: vec2): vec2 {
+    vec2 { x: a.x - b.x, y: a.y - b.y }
+}
+vec2 *(a: vec2, b: vec2): vec2 {
+    vec2 { x: a.x * b.x, y: a.y * b.y }
+}
+
+sqrtS(x_g: float, v: float){
+    x_g = ((x_g)*(x_g)+v)/(2*x_g)
+}
+sqrt(a: float): float {
+    mut x_g = 0
+    for i in 0..100{
+        sqrtS(x_g, a)
+    }
+    return x_g
+}
+
+length(a:vec2){
+    return sqrt(a.x * a.x + a.y * a.y)
+}
+
+a : vec2 = vec2 {x: 10, y: 10}
+b : vec2 = vec2 {x: 45, y: 5}
+
+@println("|x| = %f, |y| = %f, A(x,y) = (%f,%f), B(x,y) = (%f,%f), C= A+B = (%f,%f)", length(a),length(b),a.x,a.y,b.x,b.y,(a+b).x,(a+b).y)

@@ -1,0 +1,6 @@
+fn main(): int {
+    mut a, b, c = (42, 100, 7)
+    @println("a=%d b=%d c=%d
+", a, b, c)
+    return 0
+}

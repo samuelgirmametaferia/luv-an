@@ -1,0 +1,16 @@
+fn main() {
+    # Range-based comprehension
+    squares = [x * x for x in 0..10]
+    @println("Squares of 0..9:")
+    for s in squares {
+        @println("  %d", s)
+    }
+
+    # Iterable-based comprehension
+    doubles = [s * 2 for s in squares]
+    @println("\nDoubles of squares:")
+    for d in doubles {
+        @println("  %d", d)
+    }
+    0
+}

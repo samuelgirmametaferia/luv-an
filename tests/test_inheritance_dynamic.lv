@@ -1,0 +1,63 @@
+class Vehicle {
+    pub brand: string
+    pub speed: int
+
+    fn init(self: Vehicle, brand: string, speed: int) {
+        self.brand = brand
+        self.speed = speed
+    }
+
+    pub fn honk(self: Vehicle) {
+        @println("%s goes BEEP!\n", self.brand)
+    }
+}
+
+class Car : Vehicle {
+    pub doors: int
+
+    fn init(self: Car, brand: string, speed: int, doors: int) {
+        self.brand = brand
+        self.speed = speed
+        self.doors = doors
+    }
+
+    pub fn info(self: Car) {
+        @println("%s: %d doors, %d km/h\n", self.brand, self.doors, self.speed)
+    }
+}
+
+class ElectricCar : Car {
+    pub battery: int
+
+    fn init(self: ElectricCar, brand: string, speed: int, doors: int, battery: int) {
+        self.brand = brand
+        self.speed = speed
+        self.doors = doors
+        self.battery = battery
+    }
+
+    override pub fn honk(self: ElectricCar) {
+        @println("%s goes WHIRRR!\n", self.brand)
+    }
+
+    pub fn charge(self: ElectricCar) {
+        @println("Charging %s (%d%% battery)\n", self.brand, self.battery)
+    }
+}
+
+main() {
+    mut v: Vehicle = Vehicle("Generic", 50)
+    v.honk()
+
+    v = Car("Toyota", 180, 4)
+    v.honk() # Should still be BEEP
+
+    v = ElectricCar("Tesla", 250, 4, 85)
+    v.honk() # Should be WHIRRR
+
+    # Test static dispatch still works via direct type
+    e = ElectricCar("Leaf", 150, 4, 40)
+    e.honk() # WHIRRR
+    e.info() # Car info
+    0
+}

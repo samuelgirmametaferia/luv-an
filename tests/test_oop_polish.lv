@@ -1,0 +1,74 @@
+# Test: OOP polish - inheritance, interfaces, and super
+
+interface Shape {
+    fn area(): float
+    fn name(): string
+}
+
+class BaseShape : Shape {
+    fn area(): float -> 0.0
+    fn name(): string -> "Generic Shape"
+}
+
+class Circle : BaseShape {
+    radius: float
+
+    fn init(r: float) {
+        self.radius = r
+    }
+
+    override fn area(): float {
+        return 3.14159 * self.radius * self.radius
+    }
+
+    override fn name(): string -> "Circle"
+}
+
+class Rectangle : BaseShape {
+    w: float
+    h: float
+
+    fn init(w: float, h: float) {
+        self.w = w
+        self.h = h
+    }
+
+    override fn area(): float {
+        return self.w * self.h
+    }
+
+    override fn name(): string -> "Rectangle"
+}
+
+# Test multi-level inheritance
+class Square : Rectangle {
+    fn init(s: float) {
+        super.init(s, s)
+    }
+
+    override fn name(): string -> "Square"
+}
+
+fn print_shape(s: Shape) {
+    @print("Shape: %s", s.name())
+    @println(", Area: %f", s.area())
+}
+
+main() {
+    c = Circle(5.0)
+    r = Rectangle(4.0, 6.0)
+    s = Square(3.0)
+
+    print_shape(c)
+    print_shape(r)
+    print_shape(s)
+
+    # Test virtual calls on base pointer
+    b: BaseShape = c
+    @println("Base pointer (Circle) name: %s", b.name())
+    
+    b = r
+    @println("Base pointer (Rectangle) name: %s", b.name())
+
+    0
+}

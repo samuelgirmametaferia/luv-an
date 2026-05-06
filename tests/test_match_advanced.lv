@@ -1,0 +1,49 @@
+# Test: Match expressions and blocks
+
+fn test_match_expr(x: int) : string {
+    return match x {
+        1 => "one",
+        2 => "two",
+        3 => "three",
+        _ => "other"
+    }
+}
+
+fn test_match_block(x: int) {
+    match x {
+        1 => {
+            @println("Block: It's one")
+        }
+        2 => {
+            @println("Block: It's two")
+        }
+        _ => {
+            @println("Block: It's something else")
+        }
+    }
+}
+
+main() {
+    @println("Match expr (1): %s", test_match_expr(1))
+    @println("Match expr (2): %s", test_match_expr(2))
+    @println("Match expr (5): %s", test_match_expr(5))
+
+    test_match_block(1)
+    test_match_block(2)
+    test_match_block(10)
+
+    # Match with strings (if supported by codegen)
+    s = "hello"
+    # Codegen only supports integer matching currently based on visit(MatchExpr)
+    # let's test integer matching more thoroughly
+    
+    val = 100
+    res = match val {
+        50 => 1,
+        100 => 2,
+        _ => 0
+    }
+    @println("Match int: %d", res)
+
+    0
+}

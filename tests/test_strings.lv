@@ -6,6 +6,10 @@ main() {
     b = "Luv compiler!"
     c = a + b
     
+    #multiline 
+    e = "
+    hello!
+    "
     @println("Concat test: %s\n", c)
     
     # Test 2: String Interpolation

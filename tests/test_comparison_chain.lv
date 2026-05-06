@@ -1,0 +1,21 @@
+fn get_val_1(): int { @println("Eval 1\n") 1 }
+fn get_val_2(): int { @println("Eval 2\n") 2 }
+fn get_val_3(): int { @println("Eval 3\n") 3 }
+
+fn main() {
+    @println("Test 1 < 3 < 2:\n")
+    if get_val_1() < get_val_3() < get_val_2() {
+        @println("FAIL\n")
+    } else {
+        @println("OK\n")
+    }
+
+    @println("\nTest 3 < 1 < 2:\n")
+    if get_val_3() < get_val_1() < get_val_2() {
+        @println("FAIL\n")
+    } else {
+        @println("OK\n")
+    }
+
+    0
+}

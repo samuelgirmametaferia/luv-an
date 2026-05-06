@@ -1,0 +1,55 @@
+# Test: Advanced collections - comprehensions, slices, and tuples
+
+main() {
+    # 1. Array Comprehensions
+    nums = [1, 2, 3, 4, 5]
+    squares = [x * x for x in nums]
+    @print("Squares: ")
+    for s in squares { @print("%d ", s) }
+    @println("")
+
+    # Range comprehension
+    even_squares = [x * x for x in 0..10] # 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
+    @print("Range squares: ")
+    for s in even_squares { @print("%d ", s) }
+    @println("")
+
+    # 2. Slicing
+    sub = squares[1..4] # [4, 9, 16]
+    @print("Slice [1..4]: ")
+    for x in sub { @print("%d ", x) }
+    @println("")
+
+    # Inclusive slice
+    sub_inc = squares[1...3] # [4, 9, 16]
+    @print("Slice [1...3]: ")
+    for x in sub_inc { @print("%d ", x) }
+    @println("")
+
+    # 3. Tuples and Destructuring
+    t = (10, "hello", 3.14)
+    mut a = 0
+    mut b = ""
+    mut c = 0.0
+    (a, b, c) = t
+    @println("Tuple unpack: a=%d, b=%s, c=%f", a, b, c)
+
+    # Array of tuples
+    points = [(1, 2), (3, 4), (5, 6)]
+    @print("Points: ")
+    for p in points {
+        mut px = 0
+        mut py = 0
+        (px, py) = p
+        @print("(%d, %d) ", px, py)
+    }
+    @println("")
+
+    # 4. Array repeat
+    zeros = [0; 5]
+    @print("Zeros: ")
+    for z in zeros { @print("%d ", z) }
+    @println("")
+
+    0
+}

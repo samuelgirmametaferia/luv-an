@@ -1,0 +1,17 @@
+class Base {
+    pub fn hello(self: Base) {
+        @println("Base hello\n")
+    }
+}
+
+class Derived : Base {
+    override pub fn hello(self: Derived) {
+        @println("Derived hello\n")
+    }
+}
+
+fn main() {
+    mut b: Base = Derived()
+    b.hello()
+    0
+}

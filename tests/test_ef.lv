@@ -1,0 +1,12 @@
+fn main() {
+    mut x = 10
+    val = if x == 5 {
+        5
+    } ef x == 10 {
+        10
+    } else {
+        0
+    }
+    @println("val = %d\n", val)
+    0
+}

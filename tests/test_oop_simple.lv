@@ -1,0 +1,16 @@
+class Base {
+    fn name(): string -> "Base"
+}
+
+class Derived : Base {
+    override fn name(): string -> "Derived"
+}
+
+main() {
+    d = Derived()
+    @println("Name: %s", d.name())
+    
+    b: Base = d
+    @println("Base Name: %s", b.name())
+    0
+}

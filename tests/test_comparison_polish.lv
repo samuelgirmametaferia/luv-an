@@ -1,0 +1,39 @@
+# Test: Comparison chains and mixed types
+
+main() {
+    # Comparison chains
+    a = 10
+    b = 20
+    c = 30
+    
+    if a < b < c {
+        @println("a < b < c is true")
+    }
+
+    if a < b <= 20 {
+        @println("a < b <= 20 is true")
+    }
+
+    if 40 > c > b > a {
+        @println("40 > c > b > a is true")
+    }
+
+    # Mixed types comparisons
+    i = 10
+    f = 10.5
+    
+    if i < f {
+        @println("10 < 10.5 is true")
+    }
+    
+    if f > 5 {
+        @println("10.5 > 5 is true")
+    }
+
+    # Complex chain
+    if 5 < i <= 10 < f < 20 {
+        @println("5 < 10 <= 10 < 10.5 < 20 is true")
+    }
+
+    0
+}

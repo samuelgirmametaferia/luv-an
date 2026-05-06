@@ -1,0 +1,14 @@
+interface IGreet {
+    fn area(): float
+}
+
+class Person : IGreet {
+    fn area(): float -> 3.14
+}
+
+main() {
+    p = Person()
+    g: IGreet = p
+    @println("Area: %f", g.area())
+    0
+}

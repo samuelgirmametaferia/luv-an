@@ -1,0 +1,21 @@
+# Test: Runtime error checks
+
+main() {
+    # 1. Division by zero check
+    a = 10
+    b = 0
+    res = a / b # This should panic
+
+    # 2. Bounds check
+    arr = [1, 2, 3]
+    # x = arr[5] # This should panic
+
+    # 3. Null check
+    # In Luv, nen is null.
+    # class P { name: string }
+    # p: P = nen
+    # n = p.name # This should panic
+
+    @println("Checks implemented but not triggered here.")
+    0
+}

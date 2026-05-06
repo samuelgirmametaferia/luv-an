@@ -1,46 +1,12 @@
-/* 
-   This is a block comment
-   /* with a nested one */
-   to test C-style support.
-*/
-fn sort(data: [int]): [int] {
-    // This is a line comment /* that should not start a block comment
-    @println("Sorting data of length:", data.len)
-    return data
-}
-
-fn add(data: [int] = nen): int {
-    if (data == nen) {
-        @println("No data provided, returning 0")
-        return 0
-    }
-    mut sum = 0
-    for d in data {
-        sum += d
-    }
-    return sum
-}
-
-fn printTuple(t: (int, int)) {
-    @println("Tuple element 0:", t[0])
-    @println("Tuple element 1:", t[1])
-}
-
-fn main(): int {
-    # Test anonymous array literal in function call
-    sort([1, 2, 3, 5, 1])
+fn main() {
+    @println("Line 1\nLine 2\tTabbed\bBackspace\rCarriageReturn\\Backslash\"Quote\'SingleQuote\n")
     
-    # Test default parameter values
-    @println("Sum with data:", add([10, 20, 30]))
-    @println("Sum without data:", add())
-
-    # Test inline tuples
-    printTuple((100, 200))
-
-    # Test string comparison
-    if ("hello" == "hello") {
-        @println("String comparison works")
-    }
+    # Test tuple destructuring in assignment
+    mut a, b = (10, 20)
+    @println("a=%d b=%d\n", a, b)
     
-    return 0
+    a, b = (30, 40)
+    @println("after reassignment: a=%d b=%d\n", a, b)
+    
+    0
 }

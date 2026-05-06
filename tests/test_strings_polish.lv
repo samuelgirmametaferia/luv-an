@@ -1,0 +1,37 @@
+# Test: String interpolation and methods
+
+main() {
+    name = "World"
+    age = 42
+    pi = 3.14159
+    
+    # Interpolation
+    # The grammar says &"..." or &`...` for interpolation
+    msg = &"Hello, {name}! You are {age} years old. PI is {pi}."
+    @println("%s", msg)
+
+    # String methods
+    s = "  Luv Language  "
+    trimmed = s.trim()
+    @println("Original: '%s'", s)
+    @println("Trimmed:  '%s'", trimmed)
+    @println("Length:   %d", s.length())
+    
+    upper = trimmed.toUpper()
+    lower = trimmed.toLower()
+    @println("Upper: %s", upper)
+    @println("Lower: %s", lower)
+
+    if trimmed.startsWith("Luv") {
+        @println("Starts with Luv")
+    }
+    
+    if trimmed.contains("Language") {
+        @println("Contains Language")
+    }
+
+    idx = trimmed.indexOf("Lang")
+    @println("Index of 'Lang': %d", idx)
+
+    0
+}

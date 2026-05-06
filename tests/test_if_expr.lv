@@ -1,0 +1,5 @@
+fn main() {
+    val = if true { 42 } else { 24 }
+    @println("val = %d\n", val)
+    0
+}

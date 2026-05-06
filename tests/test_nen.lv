@@ -1,0 +1,15 @@
+fn main(): int {
+    mut a: int? = nen
+    if (a == nen) {
+        @println("a is nen")
+    } else {
+        @println("a is not nen")
+    }
+    a = 5
+    if (a != nen) {
+        @println("a is not nen")
+    } else {
+        @println("a is nen")
+    }
+    return 0
+}
