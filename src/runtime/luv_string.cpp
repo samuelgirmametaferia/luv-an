@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cctype>
+#include <cstdint>
 
 extern "C" {
 
@@ -113,6 +114,25 @@ const char* string_replace(const char* s, const char* old_str, const char* new_s
         }
     }
     *r = 0;
+    return res;
+}
+
+const char* string_from_int(int64_t v) {
+    char* res = (char*)malloc(32);
+    snprintf(res, 32, "%lld", (long long)v);
+    return res;
+}
+
+const char* string_from_float(double v) {
+    char* res = (char*)malloc(64);
+    snprintf(res, 64, "%g", v);
+    return res;
+}
+
+const char* string_from_char(char v) {
+    char* res = (char*)malloc(2);
+    res[0] = v;
+    res[1] = '\0';
     return res;
 }
 

@@ -68,8 +68,20 @@ public:
   virtual void enterStructDecl(LuvParser::StructDeclContext *ctx) = 0;
   virtual void exitStructDecl(LuvParser::StructDeclContext *ctx) = 0;
 
+  virtual void enterStructMember(LuvParser::StructMemberContext *ctx) = 0;
+  virtual void exitStructMember(LuvParser::StructMemberContext *ctx) = 0;
+
   virtual void enterStructField(LuvParser::StructFieldContext *ctx) = 0;
   virtual void exitStructField(LuvParser::StructFieldContext *ctx) = 0;
+
+  virtual void enterEnumDecl(LuvParser::EnumDeclContext *ctx) = 0;
+  virtual void exitEnumDecl(LuvParser::EnumDeclContext *ctx) = 0;
+
+  virtual void enterEnumVariant(LuvParser::EnumVariantContext *ctx) = 0;
+  virtual void exitEnumVariant(LuvParser::EnumVariantContext *ctx) = 0;
+
+  virtual void enterTypeList(LuvParser::TypeListContext *ctx) = 0;
+  virtual void exitTypeList(LuvParser::TypeListContext *ctx) = 0;
 
   virtual void enterClassDecl(LuvParser::ClassDeclContext *ctx) = 0;
   virtual void exitClassDecl(LuvParser::ClassDeclContext *ctx) = 0;
@@ -80,6 +92,9 @@ public:
   virtual void enterClassField(LuvParser::ClassFieldContext *ctx) = 0;
   virtual void exitClassField(LuvParser::ClassFieldContext *ctx) = 0;
 
+  virtual void enterDeclaration(LuvParser::DeclarationContext *ctx) = 0;
+  virtual void exitDeclaration(LuvParser::DeclarationContext *ctx) = 0;
+
   virtual void enterInterfaceDecl(LuvParser::InterfaceDeclContext *ctx) = 0;
   virtual void exitInterfaceDecl(LuvParser::InterfaceDeclContext *ctx) = 0;
 
@@ -89,11 +104,32 @@ public:
   virtual void enterVarDecl(LuvParser::VarDeclContext *ctx) = 0;
   virtual void exitVarDecl(LuvParser::VarDeclContext *ctx) = 0;
 
-  virtual void enterBindingPattern(LuvParser::BindingPatternContext *ctx) = 0;
-  virtual void exitBindingPattern(LuvParser::BindingPatternContext *ctx) = 0;
+  virtual void enterBindingPatternList(LuvParser::BindingPatternListContext *ctx) = 0;
+  virtual void exitBindingPatternList(LuvParser::BindingPatternListContext *ctx) = 0;
+
+  virtual void enterIdentifierPattern(LuvParser::IdentifierPatternContext *ctx) = 0;
+  virtual void exitIdentifierPattern(LuvParser::IdentifierPatternContext *ctx) = 0;
 
   virtual void enterTuplePattern(LuvParser::TuplePatternContext *ctx) = 0;
   virtual void exitTuplePattern(LuvParser::TuplePatternContext *ctx) = 0;
+
+  virtual void enterStructPattern(LuvParser::StructPatternContext *ctx) = 0;
+  virtual void exitStructPattern(LuvParser::StructPatternContext *ctx) = 0;
+
+  virtual void enterVariantPattern(LuvParser::VariantPatternContext *ctx) = 0;
+  virtual void exitVariantPattern(LuvParser::VariantPatternContext *ctx) = 0;
+
+  virtual void enterWildcardPattern(LuvParser::WildcardPatternContext *ctx) = 0;
+  virtual void exitWildcardPattern(LuvParser::WildcardPatternContext *ctx) = 0;
+
+  virtual void enterLiteralPattern(LuvParser::LiteralPatternContext *ctx) = 0;
+  virtual void exitLiteralPattern(LuvParser::LiteralPatternContext *ctx) = 0;
+
+  virtual void enterStructBindingList(LuvParser::StructBindingListContext *ctx) = 0;
+  virtual void exitStructBindingList(LuvParser::StructBindingListContext *ctx) = 0;
+
+  virtual void enterStructBinding(LuvParser::StructBindingContext *ctx) = 0;
+  virtual void exitStructBinding(LuvParser::StructBindingContext *ctx) = 0;
 
   virtual void enterModifier(LuvParser::ModifierContext *ctx) = 0;
   virtual void exitModifier(LuvParser::ModifierContext *ctx) = 0;
@@ -263,26 +299,29 @@ public:
   virtual void enterArgs(LuvParser::ArgsContext *ctx) = 0;
   virtual void exitArgs(LuvParser::ArgsContext *ctx) = 0;
 
-  virtual void enterIntLiteral(LuvParser::IntLiteralContext *ctx) = 0;
-  virtual void exitIntLiteral(LuvParser::IntLiteralContext *ctx) = 0;
+  virtual void enterIntLit(LuvParser::IntLitContext *ctx) = 0;
+  virtual void exitIntLit(LuvParser::IntLitContext *ctx) = 0;
 
-  virtual void enterFloatLiteral(LuvParser::FloatLiteralContext *ctx) = 0;
-  virtual void exitFloatLiteral(LuvParser::FloatLiteralContext *ctx) = 0;
+  virtual void enterFloatLit(LuvParser::FloatLitContext *ctx) = 0;
+  virtual void exitFloatLit(LuvParser::FloatLitContext *ctx) = 0;
 
-  virtual void enterStringLiteral(LuvParser::StringLiteralContext *ctx) = 0;
-  virtual void exitStringLiteral(LuvParser::StringLiteralContext *ctx) = 0;
+  virtual void enterStringLit(LuvParser::StringLitContext *ctx) = 0;
+  virtual void exitStringLit(LuvParser::StringLitContext *ctx) = 0;
+
+  virtual void enterCharLit(LuvParser::CharLitContext *ctx) = 0;
+  virtual void exitCharLit(LuvParser::CharLitContext *ctx) = 0;
+
+  virtual void enterBoolLit(LuvParser::BoolLitContext *ctx) = 0;
+  virtual void exitBoolLit(LuvParser::BoolLitContext *ctx) = 0;
+
+  virtual void enterNullLit(LuvParser::NullLitContext *ctx) = 0;
+  virtual void exitNullLit(LuvParser::NullLitContext *ctx) = 0;
+
+  virtual void enterPrimaryLiteral(LuvParser::PrimaryLiteralContext *ctx) = 0;
+  virtual void exitPrimaryLiteral(LuvParser::PrimaryLiteralContext *ctx) = 0;
 
   virtual void enterStringInterpolationExpr(LuvParser::StringInterpolationExprContext *ctx) = 0;
   virtual void exitStringInterpolationExpr(LuvParser::StringInterpolationExprContext *ctx) = 0;
-
-  virtual void enterCharLiteral(LuvParser::CharLiteralContext *ctx) = 0;
-  virtual void exitCharLiteral(LuvParser::CharLiteralContext *ctx) = 0;
-
-  virtual void enterBoolLiteral(LuvParser::BoolLiteralContext *ctx) = 0;
-  virtual void exitBoolLiteral(LuvParser::BoolLiteralContext *ctx) = 0;
-
-  virtual void enterNullLiteral(LuvParser::NullLiteralContext *ctx) = 0;
-  virtual void exitNullLiteral(LuvParser::NullLiteralContext *ctx) = 0;
 
   virtual void enterIdentifier(LuvParser::IdentifierContext *ctx) = 0;
   virtual void exitIdentifier(LuvParser::IdentifierContext *ctx) = 0;

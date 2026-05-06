@@ -31,9 +31,10 @@ public:
     T__98 = 99, T__99 = 100, T__100 = 101, T__101 = 102, T__102 = 103, T__103 = 104, 
     T__104 = 105, T__105 = 106, T__106 = 107, T__107 = 108, T__108 = 109, 
     T__109 = 110, T__110 = 111, T__111 = 112, T__112 = 113, T__113 = 114, 
-    T__114 = 115, AT = 116, PATH_SEP = 117, RANGE_INC = 118, RANGE = 119, 
-    FLOAT = 120, INT = 121, STRING = 122, BACKTICK_STRING = 123, CHAR = 124, 
-    BOOL = 125, IDENTIFIER = 126, WS = 127, COMMENT = 128, LINE_COMMENT = 129
+    T__114 = 115, T__115 = 116, T__116 = 117, AT = 118, PATH_SEP = 119, 
+    RANGE_INC = 120, RANGE = 121, FLOAT = 122, INT = 123, STRING = 124, 
+    BACKTICK_STRING = 125, CHAR = 126, BOOL = 127, IDENTIFIER = 128, WS = 129, 
+    COMMENT = 130, LINE_COMMENT = 131
   };
 
   explicit LuvLexer(antlr4::CharStream *input);

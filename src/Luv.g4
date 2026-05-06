@@ -14,11 +14,9 @@ moduleDecl: 'module' modulePath;
 
 // Use/import statements
 useStmt
-    : 'use' useTarget 'from' modulePath (aliasing)? ('then' 'to' modulePath)? # useFromStmt
-    | 'use' modulePath (aliasing)?                                            # usePathStmt
+    : 'use' useTarget 'from' modulePath    # useFromStmt
+    | 'use' modulePath                      # usePathStmt
     ;
-
-aliasing: 'as' IDENTIFIER;
 
 useTarget
     : '*'                                   # useAllPublic
@@ -27,8 +25,7 @@ useTarget
     | '{' useList '}'                       # useSet
     ;
 
-useList: useListItem (',' useListItem)*;
-useListItem: IDENTIFIER (aliasing)?;
+useList: IDENTIFIER (',' IDENTIFIER)*;
 
 modulePath: IDENTIFIER (PATH_SEP IDENTIFIER)*;
 
@@ -40,9 +37,9 @@ externDecl: 'extern' (STRING)? 'fn' IDENTIFIER '(' params? ')' (':' type)?;
 statement
     : funcDecl
     | structDecl
+    | enumDecl
     | classDecl
     | interfaceDecl
-    | enumDecl
     | assignment
     | exprStmt
     | ifExpr
@@ -60,33 +57,38 @@ continueStmt: 'continue' IDENTIFIER? ;
 
 block: '{' statement* '}';
 
-structDecl: (attribute)* 'struct'? IDENTIFIER '{' structField* '}' ;
+structDecl: (attribute)* 'struct'? IDENTIFIER '{' structMember* '}' ;
+structMember: (attribute | 'pub' | 'priv')* (structField | declaration) ;
 structField: IDENTIFIER ':' type ;
 
+enumDecl: (attribute)* 'enum' IDENTIFIER '{' enumVariant* '}' ;
+enumVariant: IDENTIFIER ('(' typeList ')')? ','? ;
+typeList: type (',' type)* ;
+
 classDecl: (attribute)* 'abstract'? 'class'? IDENTIFIER (':' IDENTIFIER (',' IDENTIFIER)*)? '{' classMember* '}' ;
-classMember: (attribute | 'pub' | 'priv' | 'override' | 'static')* (funcDecl | classField) ;
+classMember: (attribute | 'pub' | 'priv' | 'override' | 'static')* (funcDecl | classField | declaration) ;
 classField: IDENTIFIER ':' type ;
+
+declaration: structDecl | enumDecl | classDecl | interfaceDecl | funcDecl | varDecl ;
 
 interfaceDecl: (attribute)* 'interface' IDENTIFIER '{' interfaceMember* '}' ;
 interfaceMember: 'fn' IDENTIFIER '(' params? ')' (':' type)? ;
 
-enumDecl: (attribute)* 'enum' IDENTIFIER typeParams? '{' enumCase* '}';
-enumCase: IDENTIFIER ('(' params? ')')? (',' | ';')?;
-
-varDecl: modifier* pattern (':' type)? ('=' expr)? ;
-
-pattern
-    : IDENTIFIER                           # varPattern
-    | '(' pattern (',' pattern)* ')'       # tuplePattern
-    | IDENTIFIER '{' fieldPattern (',' fieldPattern)* '}' # structPattern
-    | '[' pattern (',' pattern)* ']'       # arrayPattern
-    | '_'                                  # wildcardPattern
-    | primary                              # constantPattern
+varDecl: (modifier | 'var')* bindingPatternList (':' type)? ('=' expr)? ;
+bindingPatternList: bindingPattern (',' bindingPattern)* ;
+bindingPattern
+    : IDENTIFIER                                    # identifierPattern
+    | '(' bindingPatternList ')'                    # tuplePattern
+    | IDENTIFIER '{' structBindingList? '}'         # structPattern
+    | IDENTIFIER '(' bindingPatternList? ')'        # variantPattern
+    | '_'                                           # wildcardPattern
+    | literal                                       # literalPattern
     ;
 
-fieldPattern: IDENTIFIER (':' pattern)? ;
+structBindingList: structBinding (',' structBinding)*;
+structBinding: IDENTIFIER (':' bindingPattern)?;
 
-modifier: 'mut' | 'const' | 'dyn' | memoryHint | attribute ;
+modifier: 'mut' | 'const' | 'dyn' | 'var' | memoryHint | attribute ;
 attribute
     : AT IDENTIFIER ('(' IDENTIFIER ')')?
     | '![' attrList ']'
@@ -95,7 +97,7 @@ attribute
 memoryHint: AT ('stack' | 'heap' | 'rc' | 'arc' | 'gc' | 'pool' | 'static') ;
 
 attrList: attr (',' attr)*;
-attr: expr;
+attr: IDENTIFIER ('(' IDENTIFIER ')')?;
 
 overloadableOp: '+' | '-' | '*' | '/' | '%' | '==' | '!=' | '<' | '>' | '<=' | '>=';
 funcName: IDENTIFIER | overloadableOp;
@@ -105,10 +107,10 @@ funcDecl
     | (attribute)* ('fn')? ('&'? boundStruct=IDENTIFIER)? funcName typeParams? '(' params? ')' (':' type)? '->' expr          # arrowFunc
     ;
 
-typeParams: '[' IDENTIFIER (',' IDENTIFIER)* ']';
+typeParams: '[' IDENTIFIER (',' IDENTIFIER)* ';';
 
 params: param (',' param)*;
-param: modifier* pattern (':' type)? ('=' expr)?;
+param: modifier* IDENTIFIER (':' type)? ('=' expr)?;
 
 type
     : typeCore '?'?
@@ -132,9 +134,9 @@ efExpr: 'ef' expr block;
 whileExpr: (attribute)* 'while' expr block;
 
 forExpr
-    : (attribute)* 'for' modifier* pattern 'in' start=expr RANGE end=expr block     # forRangeExpr
-    | (attribute)* 'for' modifier* pattern 'in' start=expr RANGE_INC end=expr block # forRangeIncExpr
-    | (attribute)* 'for' modifier* pattern 'in' expr block                          # forInExpr
+    : (attribute)* 'for' modifier* bindingPatternList 'in' start=expr RANGE end=expr block     # forRangeExpr
+    | (attribute)* 'for' modifier* bindingPatternList 'in' start=expr RANGE_INC end=expr block # forRangeIncExpr
+    | (attribute)* 'for' modifier* bindingPatternList 'in' expr block                          # forInExpr
     | (attribute)* 'for' (varDecl | assignment) ';' expr ';' assignment block            # forCStyle
     ;
 
@@ -177,20 +179,24 @@ expr
     | primary                                                    # primaryExpr
     ;
 
-matchCase: pattern '=>' (resultExpr=expr | resultBlock=block) ','? ;
+matchCase: (pattern=bindingPattern) '=>' (resultExpr=expr | resultBlock=block) ','? ;
 
 args: expr (',' expr)*;
 
+literal
+    : INT                                  # intLit
+    | FLOAT                                # floatLit
+    | STRING                               # stringLit
+    | BACKTICK_STRING                      # stringLit
+    | CHAR                                 # charLit
+    | BOOL                                 # boolLit
+    | 'nen'                                # nullLit
+    ;
+
 primary
-    : INT                                  # intLiteral
-    | FLOAT                                # floatLiteral
-    | STRING                               # stringLiteral
-    | BACKTICK_STRING                      # stringLiteral
+    : literal                              # primaryLiteral
     | '&' STRING                           # stringInterpolationExpr
     | '&' BACKTICK_STRING                  # stringInterpolationExpr
-    | CHAR                                 # charLiteral
-    | BOOL                                 # boolLiteral
-    | 'nen'                                # nullLiteral
     | IDENTIFIER                           # identifier
     | '(' expr ')'                         # groupingExpr
     | '(' expr (',' expr)+ ')'             # tupleExpr
@@ -209,7 +215,7 @@ RANGE_INC: '...';
 RANGE: '..';
 FLOAT: [0-9]+ '.' [0-9]+;
 INT: [0-9]+;
-STRING: '"' (~["\\] | '\\' .)* '"';
+STRING: '"' (~["\\\r\n] | '\\' .)* '"';
 BACKTICK_STRING: '`' (~[`\\] | '\\' .)* '`';
 CHAR: '\'' (~['\\\r\n] | '\\' .) '\'';
 BOOL: 'true' | 'false';

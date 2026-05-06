@@ -87,7 +87,23 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitStructMember(LuvParser::StructMemberContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitStructField(LuvParser::StructFieldContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitEnumDecl(LuvParser::EnumDeclContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitEnumVariant(LuvParser::EnumVariantContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitTypeList(LuvParser::TypeListContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -103,6 +119,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitDeclaration(LuvParser::DeclarationContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitInterfaceDecl(LuvParser::InterfaceDeclContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -115,11 +135,39 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitBindingPattern(LuvParser::BindingPatternContext *ctx) override {
+  virtual std::any visitBindingPatternList(LuvParser::BindingPatternListContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitIdentifierPattern(LuvParser::IdentifierPatternContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual std::any visitTuplePattern(LuvParser::TuplePatternContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitStructPattern(LuvParser::StructPatternContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitVariantPattern(LuvParser::VariantPatternContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitWildcardPattern(LuvParser::WildcardPatternContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitLiteralPattern(LuvParser::LiteralPatternContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitStructBindingList(LuvParser::StructBindingListContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitStructBinding(LuvParser::StructBindingContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -347,31 +395,35 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitIntLiteral(LuvParser::IntLiteralContext *ctx) override {
+  virtual std::any visitIntLit(LuvParser::IntLitContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual std::any visitFloatLiteral(LuvParser::FloatLiteralContext *ctx) override {
+  virtual std::any visitFloatLit(LuvParser::FloatLitContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual std::any visitStringLiteral(LuvParser::StringLiteralContext *ctx) override {
+  virtual std::any visitStringLit(LuvParser::StringLitContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitCharLit(LuvParser::CharLitContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitBoolLit(LuvParser::BoolLitContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitNullLit(LuvParser::NullLitContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitPrimaryLiteral(LuvParser::PrimaryLiteralContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual std::any visitStringInterpolationExpr(LuvParser::StringInterpolationExprContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitCharLiteral(LuvParser::CharLiteralContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitBoolLiteral(LuvParser::BoolLiteralContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitNullLiteral(LuvParser::NullLiteralContext *ctx) override {
     return visitChildren(ctx);
   }
 

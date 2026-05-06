@@ -16,6 +16,27 @@ public:
     llvm::Value* visit(NullExpr& node) override { return nullptr; }
     llvm::Value* visit(VarExpr& node) override { return nullptr; }
     llvm::Value* visit(BinaryExpr& node) override { return nullptr; }
+
+    llvm::Value* visit(IdentifierPattern& node) override { return nullptr; }
+    llvm::Value* visit(TuplePattern& node) override {
+        for (auto* e : node.elements) e->accept(*this);
+        return nullptr;
+    }
+    llvm::Value* visit(StructPattern& node) override {
+        for (auto& f : node.fields) f.second->accept(*this);
+        return nullptr;
+    }
+    llvm::Value* visit(VariantPattern& node) override {
+        for (auto* e : node.elements) e->accept(*this);
+        return nullptr;
+    }
+    llvm::Value* visit(WildcardPattern& node) override { return nullptr; }
+    llvm::Value* visit(LiteralPattern& node) override {
+        node.literal->accept(*this);
+        return nullptr;
+    }
+    llvm::Value* visit(EnumDecl& node) override { return nullptr; }
+
     llvm::Value* visit(UnaryExpr& node) override { return nullptr; }
     llvm::Value* visit(CallExpr& node) override { return nullptr; }
     llvm::Value* visit(GenericCallExpr& node) override { return nullptr; }

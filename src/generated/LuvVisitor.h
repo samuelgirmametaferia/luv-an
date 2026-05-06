@@ -55,7 +55,15 @@ public:
 
     virtual std::any visitStructDecl(LuvParser::StructDeclContext *context) = 0;
 
+    virtual std::any visitStructMember(LuvParser::StructMemberContext *context) = 0;
+
     virtual std::any visitStructField(LuvParser::StructFieldContext *context) = 0;
+
+    virtual std::any visitEnumDecl(LuvParser::EnumDeclContext *context) = 0;
+
+    virtual std::any visitEnumVariant(LuvParser::EnumVariantContext *context) = 0;
+
+    virtual std::any visitTypeList(LuvParser::TypeListContext *context) = 0;
 
     virtual std::any visitClassDecl(LuvParser::ClassDeclContext *context) = 0;
 
@@ -63,15 +71,31 @@ public:
 
     virtual std::any visitClassField(LuvParser::ClassFieldContext *context) = 0;
 
+    virtual std::any visitDeclaration(LuvParser::DeclarationContext *context) = 0;
+
     virtual std::any visitInterfaceDecl(LuvParser::InterfaceDeclContext *context) = 0;
 
     virtual std::any visitInterfaceMember(LuvParser::InterfaceMemberContext *context) = 0;
 
     virtual std::any visitVarDecl(LuvParser::VarDeclContext *context) = 0;
 
-    virtual std::any visitBindingPattern(LuvParser::BindingPatternContext *context) = 0;
+    virtual std::any visitBindingPatternList(LuvParser::BindingPatternListContext *context) = 0;
+
+    virtual std::any visitIdentifierPattern(LuvParser::IdentifierPatternContext *context) = 0;
 
     virtual std::any visitTuplePattern(LuvParser::TuplePatternContext *context) = 0;
+
+    virtual std::any visitStructPattern(LuvParser::StructPatternContext *context) = 0;
+
+    virtual std::any visitVariantPattern(LuvParser::VariantPatternContext *context) = 0;
+
+    virtual std::any visitWildcardPattern(LuvParser::WildcardPatternContext *context) = 0;
+
+    virtual std::any visitLiteralPattern(LuvParser::LiteralPatternContext *context) = 0;
+
+    virtual std::any visitStructBindingList(LuvParser::StructBindingListContext *context) = 0;
+
+    virtual std::any visitStructBinding(LuvParser::StructBindingContext *context) = 0;
 
     virtual std::any visitModifier(LuvParser::ModifierContext *context) = 0;
 
@@ -185,19 +209,21 @@ public:
 
     virtual std::any visitArgs(LuvParser::ArgsContext *context) = 0;
 
-    virtual std::any visitIntLiteral(LuvParser::IntLiteralContext *context) = 0;
+    virtual std::any visitIntLit(LuvParser::IntLitContext *context) = 0;
 
-    virtual std::any visitFloatLiteral(LuvParser::FloatLiteralContext *context) = 0;
+    virtual std::any visitFloatLit(LuvParser::FloatLitContext *context) = 0;
 
-    virtual std::any visitStringLiteral(LuvParser::StringLiteralContext *context) = 0;
+    virtual std::any visitStringLit(LuvParser::StringLitContext *context) = 0;
+
+    virtual std::any visitCharLit(LuvParser::CharLitContext *context) = 0;
+
+    virtual std::any visitBoolLit(LuvParser::BoolLitContext *context) = 0;
+
+    virtual std::any visitNullLit(LuvParser::NullLitContext *context) = 0;
+
+    virtual std::any visitPrimaryLiteral(LuvParser::PrimaryLiteralContext *context) = 0;
 
     virtual std::any visitStringInterpolationExpr(LuvParser::StringInterpolationExprContext *context) = 0;
-
-    virtual std::any visitCharLiteral(LuvParser::CharLiteralContext *context) = 0;
-
-    virtual std::any visitBoolLiteral(LuvParser::BoolLiteralContext *context) = 0;
-
-    virtual std::any visitNullLiteral(LuvParser::NullLiteralContext *context) = 0;
 
     virtual std::any visitIdentifier(LuvParser::IdentifierContext *context) = 0;
 

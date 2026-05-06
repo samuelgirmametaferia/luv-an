@@ -268,7 +268,8 @@ ParseResult parseFile(const std::string& filePath, Arena& arena, bool printLex, 
 
     LuvVisitorImpl visitor(arena);
     visitor.setCurrentFile(filePath);
-    result.program = std::any_cast<Program*>(visitor.visitProgram(tree));
+    Node* programNode = std::any_cast<Node*>(visitor.visitProgram(tree));
+    result.program = dynamic_cast<Program*>(programNode);
     result.success = true;
 
     return result;
@@ -288,7 +289,9 @@ std::vector<ExportedSymbol> extractExports(const Program& prog) {
             exports.push_back({func->name, vis, ExportedSymbol::FUNCTION});
         } else if (auto* var = dynamic_cast<VarDecl*>(stmt)) {
             // Top-level variables are public by default
-            exports.push_back({var->name, Visibility::PUBLIC, ExportedSymbol::VARIABLE});
+            if (auto* ipat = dynamic_cast<IdentifierPattern*>(var->pattern)) {
+                exports.push_back({ipat->name, Visibility::PUBLIC, ExportedSymbol::VARIABLE});
+            }
         }
     }
     return exports;

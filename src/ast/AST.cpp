@@ -10,6 +10,15 @@ llvm::Value* BoolExpr::accept(ASTVisitor& visitor) { return visitor.visit(*this)
 llvm::Value* NullExpr::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
 llvm::Value* VarExpr::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
 llvm::Value* BinaryExpr::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+
+llvm::Value* IdentifierPattern::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+llvm::Value* TuplePattern::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+llvm::Value* StructPattern::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+llvm::Value* VariantPattern::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+llvm::Value* WildcardPattern::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+llvm::Value* LiteralPattern::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+llvm::Value* EnumDecl::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
+
 llvm::Value* UnaryExpr::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
 llvm::Value* CallExpr::accept(ASTVisitor& visitor) { return visitor.visit(*this); }
 llvm::Value* GenericCallExpr::accept(ASTVisitor& visitor) { return visitor.visit(*this); }

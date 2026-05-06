@@ -70,8 +70,20 @@ public:
   virtual void enterStructDecl(LuvParser::StructDeclContext * /*ctx*/) override { }
   virtual void exitStructDecl(LuvParser::StructDeclContext * /*ctx*/) override { }
 
+  virtual void enterStructMember(LuvParser::StructMemberContext * /*ctx*/) override { }
+  virtual void exitStructMember(LuvParser::StructMemberContext * /*ctx*/) override { }
+
   virtual void enterStructField(LuvParser::StructFieldContext * /*ctx*/) override { }
   virtual void exitStructField(LuvParser::StructFieldContext * /*ctx*/) override { }
+
+  virtual void enterEnumDecl(LuvParser::EnumDeclContext * /*ctx*/) override { }
+  virtual void exitEnumDecl(LuvParser::EnumDeclContext * /*ctx*/) override { }
+
+  virtual void enterEnumVariant(LuvParser::EnumVariantContext * /*ctx*/) override { }
+  virtual void exitEnumVariant(LuvParser::EnumVariantContext * /*ctx*/) override { }
+
+  virtual void enterTypeList(LuvParser::TypeListContext * /*ctx*/) override { }
+  virtual void exitTypeList(LuvParser::TypeListContext * /*ctx*/) override { }
 
   virtual void enterClassDecl(LuvParser::ClassDeclContext * /*ctx*/) override { }
   virtual void exitClassDecl(LuvParser::ClassDeclContext * /*ctx*/) override { }
@@ -82,6 +94,9 @@ public:
   virtual void enterClassField(LuvParser::ClassFieldContext * /*ctx*/) override { }
   virtual void exitClassField(LuvParser::ClassFieldContext * /*ctx*/) override { }
 
+  virtual void enterDeclaration(LuvParser::DeclarationContext * /*ctx*/) override { }
+  virtual void exitDeclaration(LuvParser::DeclarationContext * /*ctx*/) override { }
+
   virtual void enterInterfaceDecl(LuvParser::InterfaceDeclContext * /*ctx*/) override { }
   virtual void exitInterfaceDecl(LuvParser::InterfaceDeclContext * /*ctx*/) override { }
 
@@ -91,11 +106,32 @@ public:
   virtual void enterVarDecl(LuvParser::VarDeclContext * /*ctx*/) override { }
   virtual void exitVarDecl(LuvParser::VarDeclContext * /*ctx*/) override { }
 
-  virtual void enterBindingPattern(LuvParser::BindingPatternContext * /*ctx*/) override { }
-  virtual void exitBindingPattern(LuvParser::BindingPatternContext * /*ctx*/) override { }
+  virtual void enterBindingPatternList(LuvParser::BindingPatternListContext * /*ctx*/) override { }
+  virtual void exitBindingPatternList(LuvParser::BindingPatternListContext * /*ctx*/) override { }
+
+  virtual void enterIdentifierPattern(LuvParser::IdentifierPatternContext * /*ctx*/) override { }
+  virtual void exitIdentifierPattern(LuvParser::IdentifierPatternContext * /*ctx*/) override { }
 
   virtual void enterTuplePattern(LuvParser::TuplePatternContext * /*ctx*/) override { }
   virtual void exitTuplePattern(LuvParser::TuplePatternContext * /*ctx*/) override { }
+
+  virtual void enterStructPattern(LuvParser::StructPatternContext * /*ctx*/) override { }
+  virtual void exitStructPattern(LuvParser::StructPatternContext * /*ctx*/) override { }
+
+  virtual void enterVariantPattern(LuvParser::VariantPatternContext * /*ctx*/) override { }
+  virtual void exitVariantPattern(LuvParser::VariantPatternContext * /*ctx*/) override { }
+
+  virtual void enterWildcardPattern(LuvParser::WildcardPatternContext * /*ctx*/) override { }
+  virtual void exitWildcardPattern(LuvParser::WildcardPatternContext * /*ctx*/) override { }
+
+  virtual void enterLiteralPattern(LuvParser::LiteralPatternContext * /*ctx*/) override { }
+  virtual void exitLiteralPattern(LuvParser::LiteralPatternContext * /*ctx*/) override { }
+
+  virtual void enterStructBindingList(LuvParser::StructBindingListContext * /*ctx*/) override { }
+  virtual void exitStructBindingList(LuvParser::StructBindingListContext * /*ctx*/) override { }
+
+  virtual void enterStructBinding(LuvParser::StructBindingContext * /*ctx*/) override { }
+  virtual void exitStructBinding(LuvParser::StructBindingContext * /*ctx*/) override { }
 
   virtual void enterModifier(LuvParser::ModifierContext * /*ctx*/) override { }
   virtual void exitModifier(LuvParser::ModifierContext * /*ctx*/) override { }
@@ -265,26 +301,29 @@ public:
   virtual void enterArgs(LuvParser::ArgsContext * /*ctx*/) override { }
   virtual void exitArgs(LuvParser::ArgsContext * /*ctx*/) override { }
 
-  virtual void enterIntLiteral(LuvParser::IntLiteralContext * /*ctx*/) override { }
-  virtual void exitIntLiteral(LuvParser::IntLiteralContext * /*ctx*/) override { }
+  virtual void enterIntLit(LuvParser::IntLitContext * /*ctx*/) override { }
+  virtual void exitIntLit(LuvParser::IntLitContext * /*ctx*/) override { }
 
-  virtual void enterFloatLiteral(LuvParser::FloatLiteralContext * /*ctx*/) override { }
-  virtual void exitFloatLiteral(LuvParser::FloatLiteralContext * /*ctx*/) override { }
+  virtual void enterFloatLit(LuvParser::FloatLitContext * /*ctx*/) override { }
+  virtual void exitFloatLit(LuvParser::FloatLitContext * /*ctx*/) override { }
 
-  virtual void enterStringLiteral(LuvParser::StringLiteralContext * /*ctx*/) override { }
-  virtual void exitStringLiteral(LuvParser::StringLiteralContext * /*ctx*/) override { }
+  virtual void enterStringLit(LuvParser::StringLitContext * /*ctx*/) override { }
+  virtual void exitStringLit(LuvParser::StringLitContext * /*ctx*/) override { }
+
+  virtual void enterCharLit(LuvParser::CharLitContext * /*ctx*/) override { }
+  virtual void exitCharLit(LuvParser::CharLitContext * /*ctx*/) override { }
+
+  virtual void enterBoolLit(LuvParser::BoolLitContext * /*ctx*/) override { }
+  virtual void exitBoolLit(LuvParser::BoolLitContext * /*ctx*/) override { }
+
+  virtual void enterNullLit(LuvParser::NullLitContext * /*ctx*/) override { }
+  virtual void exitNullLit(LuvParser::NullLitContext * /*ctx*/) override { }
+
+  virtual void enterPrimaryLiteral(LuvParser::PrimaryLiteralContext * /*ctx*/) override { }
+  virtual void exitPrimaryLiteral(LuvParser::PrimaryLiteralContext * /*ctx*/) override { }
 
   virtual void enterStringInterpolationExpr(LuvParser::StringInterpolationExprContext * /*ctx*/) override { }
   virtual void exitStringInterpolationExpr(LuvParser::StringInterpolationExprContext * /*ctx*/) override { }
-
-  virtual void enterCharLiteral(LuvParser::CharLiteralContext * /*ctx*/) override { }
-  virtual void exitCharLiteral(LuvParser::CharLiteralContext * /*ctx*/) override { }
-
-  virtual void enterBoolLiteral(LuvParser::BoolLiteralContext * /*ctx*/) override { }
-  virtual void exitBoolLiteral(LuvParser::BoolLiteralContext * /*ctx*/) override { }
-
-  virtual void enterNullLiteral(LuvParser::NullLiteralContext * /*ctx*/) override { }
-  virtual void exitNullLiteral(LuvParser::NullLiteralContext * /*ctx*/) override { }
 
   virtual void enterIdentifier(LuvParser::IdentifierContext * /*ctx*/) override { }
   virtual void exitIdentifier(LuvParser::IdentifierContext * /*ctx*/) override { }
