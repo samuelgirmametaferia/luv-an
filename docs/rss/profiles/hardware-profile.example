@@ -1,0 +1,5 @@
+mmu=true
+tlb_alias=true
+tbi=true
+huge_pages=true
+trap_assist=true

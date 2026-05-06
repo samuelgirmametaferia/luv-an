@@ -44,12 +44,6 @@ public:
     }
 
     // ── Visitor overrides ──
-    llvm::Value* visit(VarPattern& node) override;
-    llvm::Value* visit(TuplePattern& node) override;
-    llvm::Value* visit(StructPattern& node) override;
-    llvm::Value* visit(ArrayPattern& node) override;
-    llvm::Value* visit(WildcardPattern& node) override;
-    llvm::Value* visit(ConstantPattern& node) override;
     llvm::Value* visit(IntExpr& node) override;
     llvm::Value* visit(FloatExpr& node) override;
     llvm::Value* visit(StringExpr& node) override;
@@ -58,6 +52,13 @@ public:
     llvm::Value* visit(NullExpr& node) override;
     llvm::Value* visit(VarExpr& node) override;
     llvm::Value* visit(BinaryExpr& node) override;
+    llvm::Value* visit(IdentifierPattern& node) override;
+    llvm::Value* visit(TuplePattern& node) override;
+    llvm::Value* visit(StructPattern& node) override;
+    llvm::Value* visit(VariantPattern& node) override;
+    llvm::Value* visit(WildcardPattern& node) override;
+    llvm::Value* visit(LiteralPattern& node) override;
+    llvm::Value* visit(EnumDecl& node) override;
     llvm::Value* visit(UnaryExpr& node) override;
     llvm::Value* visit(CallExpr& node) override;
     llvm::Value* visit(GenericCallExpr& node) override;
@@ -89,7 +90,6 @@ public:
     llvm::Value* visit(StructDecl& node) override;
     llvm::Value* visit(ClassDecl& node) override;
     llvm::Value* visit(InterfaceDecl& node) override;
-    llvm::Value* visit(EnumDecl& node) override;
     llvm::Value* visit(ExternDecl& node) override;
     llvm::Value* visit(ModuleDeclStmt& node) override;
     llvm::Value* visit(IndexExpr& node) override;
@@ -121,13 +121,17 @@ private:
     std::map<std::string, std::string> typeSubstitutions;
     std::map<std::string, llvm::StructType*> structTypes;
     std::map<std::string, StructDecl*> structDecls;
-    std::map<std::string, llvm::StructType*> classTypes;
-    std::map<std::string, ClassDecl*> classDecls;
     std::map<std::string, llvm::StructType*> enumTypes;
     std::map<std::string, EnumDecl*> enumDecls;
+    std::map<std::string, llvm::StructType*> classTypes;
+    std::map<std::string, ClassDecl*> classDecls;
     std::map<std::string, std::vector<std::string>> vtableLayouts;
     std::map<std::string, llvm::StructType*> vtableTypes;
-    std::map<std::string, std::string> varSemanticTypes; 
+    std::set<std::string> interfaceNames;
+    std::map<std::string, InterfaceDecl*> interfaceDecls;
+    std::map<std::string, std::vector<std::string>> interfaceLayouts;
+    std::map<std::string, std::string> varSemanticTypes; // var name -> type name
+    std::vector<std::string> classContextStack;
     
     struct LoopBlocks {
         llvm::BasicBlock* continueBB;
@@ -135,13 +139,6 @@ private:
         std::vector<std::string> labels;
     };
     std::vector<LoopBlocks> loopStack;
-    std::vector<std::string> extractLabels(const std::vector<Expr*>& attrs);
-    
-    // Pattern matching state
-    llvm::Value* matchValue = nullptr;
-    llvm::BasicBlock* matchFailBB = nullptr;
-    void generatePatternMatch(Pattern* p, llvm::Value* val, llvm::BasicBlock* failBB);
-
 
     std::set<std::string> defines_;
     std::set<std::string> excludes_;
@@ -159,12 +156,15 @@ private:
     void generateNullCheck(llvm::Value* val, const std::string& msg);
     void generateDivByZeroCheck(llvm::Value* val);
     void generateBoundsCheck(llvm::Value* index, llvm::Value* length);
+    llvm::Value* generatePrint(const std::vector<Expr*>& args, bool newline);
 
     llvm::Value* lastValue = nullptr;
     llvm::Value* blockLastValue = nullptr;
     llvm::Type* currentReturnType = nullptr;
     llvm::Function* scriptInitFunc = nullptr;
     void generateMainWrapper();
+    bool generatePatternMatch(llvm::Value* val, Pattern* pat, llvm::BasicBlock* successBB, llvm::BasicBlock* failBB);
+    void generatePatternDestructuring(llvm::Value* val, Pattern* pat, bool isMut, const std::string& baseType);
 };
 
 } // namespace luv

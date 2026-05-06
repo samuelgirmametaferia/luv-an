@@ -1,0 +1,4 @@
+# symbol=likelihood
+main=0.99
+hot_loop=0.95
+cold_fallback=0.05

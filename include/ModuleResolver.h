@@ -40,17 +40,10 @@ struct ImportRequest {
         PATH            // use X::Y (last element is target)
     };
 
-    struct SymbolAlias {
-        std::string original;
-        std::string alias;
-    };
-
     TargetKind targetKind;
-    std::vector<SymbolAlias> symbols;     
-    std::vector<std::string> modulePath;  
-    std::string moduleAlias;              // use X as Y
-    std::vector<std::string> thenToPath;  // then to Z
-    std::string sourceFile;               
+    std::vector<std::string> names;       // SINGLE/SET: symbol names
+    std::vector<std::string> modulePath;  // module path segments
+    std::string sourceFile;               // file containing this use stmt
     int line = 0;
     int column = 0;
 };
